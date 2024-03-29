@@ -8,6 +8,7 @@ export default function SearchBar() {
   const [locationAnchorEl, setLocationAnchorEl] = useState(null)
   const [travelerAnchorEl, setTravelerAnchorEl] = useState(null)
   const [showCalendar, setShowCalendar] = useState(false)
+  const [selectedLocation, setSelectedLocation] = useState('');
   const handleLocationModalOpen = (e) => {
     setLocationAnchorEl(e.currentTarget)
   }
@@ -17,7 +18,9 @@ export default function SearchBar() {
   const handleCheckInOutClick = () => {
     setShowCalendar(!showCalendar)
   }
-
+  const handleLocationSelect = (location) => {
+    setSelectedLocation(location);
+  };
   return (
     <div className="w-[900px] h-[72px] relative flex border border-b border-gray-300 rounded-full shadow-lg">
       {/* 검색바 */}
@@ -26,10 +29,16 @@ export default function SearchBar() {
         aria-controls="profile-menu"
         aria-haspopup="true"
         onClick={handleLocationModalOpen}
-      >
+      >       
         <div className="text-black font-bold ml-8">여행지</div>
-        <div className="text-gray-500 items-center ml-8">여행지 검색</div>
+        <input
+          className="text-gray-500 items-center ml-8 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
+          placeholder="여행지 검색"
+          value={selectedLocation}
+          readOnly
+        />
       </button>
+
       <button
         className="w-1/6 flex flex-col justify-center rounded-full hover:bg-gray-100 text-sm"
         onClick={handleCheckInOutClick}
@@ -63,6 +72,7 @@ export default function SearchBar() {
       <LocationModal
         anchorEl={locationAnchorEl}
         setAnchorEl={setLocationAnchorEl}
+        onSelectLocation={handleLocationSelect}
       />
       <TravelerModal
         anchorEl={travelerAnchorEl}
