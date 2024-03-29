@@ -9,12 +9,15 @@ import SoutheastAsia from '/public/home/SoutheastAsia.png'
 import Thailand from '/public/home/Thailand.png'
 import Australia from '/public/home/Australia.png'
 
-export default function LocationModal({ anchorEl, setAnchorEl }) {
+export default function LocationModal({ anchorEl, setAnchorEl, onSelectLocation }) {
   const isOpen = Boolean(anchorEl)
   const onClose = () => {
     setAnchorEl(null)
   }
-
+  const handleLocationSelect = (location) => {
+    onSelectLocation(location);
+    onClose();
+  };
   return (
     <Menu
       id="location-modal"
@@ -36,7 +39,7 @@ export default function LocationModal({ anchorEl, setAnchorEl }) {
         지역으로 검색하기
       </Typography>
       <Grid container spacing={4} sx={{ padding: '20px' }}>
-        <Grid item xs={4}>
+        <Grid item xs={4} onClick={() => handleLocationSelect('유연한 검색')}>
           <div className="hover:border-2 hover:border-gray-500">
             <Image
               src={world}
@@ -50,7 +53,7 @@ export default function LocationModal({ anchorEl, setAnchorEl }) {
             유연한 검색
           </Typography>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={4} onClick={() => handleLocationSelect('유럽')}>
           <div className="hover:border-2 hover:border-gray-500">
             <Image
               src={Europe}
@@ -64,7 +67,7 @@ export default function LocationModal({ anchorEl, setAnchorEl }) {
             유럽
           </Typography>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={4} onClick={() => handleLocationSelect('일본')}>
           <div className="hover:border-2 hover:border-gray-500">
             <Image
               src={japan}
@@ -78,7 +81,7 @@ export default function LocationModal({ anchorEl, setAnchorEl }) {
             일본
           </Typography>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={4} onClick={() => handleLocationSelect('동남아시아')}>
           <div className="hover:border-2 hover:border-gray-500">
             <Image
               src={SoutheastAsia}
@@ -92,7 +95,7 @@ export default function LocationModal({ anchorEl, setAnchorEl }) {
             동남아시아
           </Typography>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={4} onClick={() => handleLocationSelect('태국')}>
           <div className="hover:border-2 hover:border-gray-500">
             <Image
               src={Thailand}
@@ -106,7 +109,7 @@ export default function LocationModal({ anchorEl, setAnchorEl }) {
             태국
           </Typography>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={4} onClick={() => handleLocationSelect('호주')}>
           <div className="hover:border-2 hover:border-gray-500">
             <Image
               src={Australia}
