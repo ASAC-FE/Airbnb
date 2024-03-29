@@ -1,8 +1,7 @@
 'use client'
-
 import React, { useState } from 'react'
 import Back from '/public/Back.svg'
-import MoreOne from '@/app/components/login/moreone'
+import MoreOne from '@/app/components/signup/moreone'
 export default function SignUpModal({ onClose, email }) {
   const [openMore, setopenMore] = useState(false)
   const handleClose = (e) => {
