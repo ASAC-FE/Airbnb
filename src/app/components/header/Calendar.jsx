@@ -22,16 +22,17 @@ const css = `
 }
 `
 
-export default function Calendar() {
+export default function Calendar({onSelectRange}) {
   const [selectedRange, setSelectedRange] = useState({
     from: undefined,
     to: undefined,
   })
 
   const handleSelect = (newRange) => {
-    setSelectedRange(newRange)
+    setSelectedRange(newRange);
+    onSelectRange(newRange);
   }
-
+  
   return (
     <div className="Calendar">
       <style>{css}</style>
