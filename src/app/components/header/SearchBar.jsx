@@ -21,6 +21,19 @@ export default function SearchBar() {
   const handleLocationSelect = (location) => {
     setSelectedLocation(location);
   };
+
+  const [checkInDate, setCheckInDate] = useState(null); // 새로운 상태 추가
+  const [checkOutDate, setCheckOutDate] = useState(null); // 새로운 상태 추가
+
+  const handleSelectRange = (newRange) => {
+    // 수정: newRange.from이 Date 객체인지 확인
+    if (newRange.from instanceof Date) {
+      setCheckInDate(newRange?.from);
+    }
+    setCheckOutDate(newRange?.to);
+    setShowCalendar(false);
+  }
+  
   return (
     <div className="w-[900px] h-[72px] relative flex border border-b border-gray-300 rounded-full shadow-lg">
       {/* 검색바 */}
@@ -44,7 +57,12 @@ export default function SearchBar() {
         onClick={handleCheckInOutClick}
       >
         <div className="text-black font-bold ml-8">체크인</div>
-        <div className="text-gray-500 items-center ml-8">날짜 추가</div>
+        <input
+          className="text-gray-500 items-center ml-8 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
+          placeholder="날짜 추가"
+          value={checkInDate ? checkInDate.toLocaleDateString() : ''}
+          readOnly
+        />
       </button>
       <button
         className="w-1/6 flex flex-col justify-center rounded-full hover:bg-gray-100 text-sm"
@@ -80,7 +98,7 @@ export default function SearchBar() {
       />
       {showCalendar && (
         <div className="absolute top-16 right-0 z-20">
-          <CalendarModal />
+          <CalendarModal onSelectRange={handleSelectRange} />
         </div>
       )}
     </div>
