@@ -13,6 +13,39 @@ export default function SignUpModal({ onClose, email }) {
     setopenMore(true)
   }
 
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // 폼 제출 시 페이지 새로고침 방지
+
+    const formData = {
+      user_name: event.target.user_name.value,
+      user_last_name: event.target.user_last_name.value,
+      birth_day: event.target.birth_day.value,
+      email: event.target.email.value,
+      password: event.target.password.value,
+    };
+
+    try {
+      const response = await fetch("htpp://localhost:8080/members/new", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      console.log("repose:?", response);
+
+      if (response.ok) {
+        alert("회원가입에 성공했습니다.");
+      } else {
+        alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+      }
+    } catch (error) {
+      console.error("회원가입 요청 중 오류가 발생했습니다:", error);
+      alert("네트워크 오류가 발생했습니다. 다시 시도해주세요.");
+    }
+  };
+
   return (
     <div
       className="fixed inset-0 bg-black bg-opacity-25 flex flex-col justify-center items-center animate-fadeIn"
@@ -31,12 +64,15 @@ export default function SignUpModal({ onClose, email }) {
             회원 가입 완료하기
           </span>
         </div>
-        <form className="w-full h-[600px] overflow-y-auto overflow-x-hidden p-6">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full h-[600px] overflow-y-auto overflow-x-hidden p-6"
+        >
           <div className="divide-y divide-gray-400 border border-gray-400 rounded-lg">
             <div className="py-3 border border-white focus-within:ring focus-within:ring-black rounded-lg">
               <input
                 type="text"
-                name="이름"
+                name="user_name"
                 placeholder="이름(예: 길동)"
                 autoComplete="off"
                 className="py-1 px-3 block w-full bg-transparent text-sm placeholder:text-gray-500 focus:outline-none focus:ring-0"
@@ -45,7 +81,7 @@ export default function SignUpModal({ onClose, email }) {
             <div className="py-3 border border-white focus-within:ring focus-within:ring-black rounded-lg">
               <input
                 type="text"
-                name="성"
+                name="user_last_name"
                 placeholder="성(예: 홍)"
                 autoComplete="off"
                 className="py-1 px-3 block w-full bg-transparent text-sm placeholder:text-gray-500 focus:outline-none focus:ring-0"
@@ -57,8 +93,8 @@ export default function SignUpModal({ onClose, email }) {
           </p>
           <div className="rounded-lg border border-gray-400 py-3 mt-4 focus-within:ring focus-within:ring-black">
             <input
-              type=""
-              name="생년월일"
+              type="text"
+              name="birth_day"
               placeholder="생년월일"
               autoComplete="off"
               className="py-1 px-3 block w-full bg-transparent text-sm placeholder:text-gray-500 focus:outline-none focus:ring-0"
@@ -71,7 +107,7 @@ export default function SignUpModal({ onClose, email }) {
           <div className="rounded-lg border border-gray-400 py-3 mt-4 focus-within:ring focus-within:ring-black">
             <input
               type="text"
-              name="이메일"
+              name="email"
               placeholder="이메일"
               autoComplete="off"
               className="py-1 px-3 block w-full bg-transparent text-sm placeholder:text-gray-500 focus:outline-none focus:ring-0"
@@ -83,8 +119,8 @@ export default function SignUpModal({ onClose, email }) {
           </p>
           <div className="rounded-lg border border-gray-400 py-3 my-6 focus-within:ring focus-within:ring-black">
             <input
-              type="text"
-              name="비밀번호"
+              type="password"
+              name="password"
               placeholder="비밀번호"
               autoComplete="off"
               className="py-1 px-3 block w-full bg-transparent text-sm placeholder:text-gray-500 focus:outline-none focus:ring-0"
@@ -174,7 +210,7 @@ export default function SignUpModal({ onClose, email }) {
           </p>
           <button
             className="font-semibold w-full transition items-center justify-center rounded-md text-sm bg-rose-500 text-white h-11"
-            type="button"
+            type="submit"
           >
             동의 및 계속하기
           </button>
