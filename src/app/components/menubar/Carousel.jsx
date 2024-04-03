@@ -51,7 +51,7 @@ export default function Carousel() {
         </div>
       </button>
       <div className="w-auto flex justify-between items-center space-x-12">
-        {menus.slice(currentIndex, currentIndex + 11).map((menu, index) => (
+        {menus.slice(currentIndex, currentIndex + 16).map((menu, index) => (
           <div
             key={index}
             className="flex flex-col justify-between items-center"

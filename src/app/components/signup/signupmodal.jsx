@@ -4,6 +4,10 @@ import Back from '/public/Back.svg'
 import MoreOne from '@/app/components/signup/moreone'
 export default function SignUpModal({ onClose, email }) {
   const [openMore, setopenMore] = useState(false)
+  const [name, setName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [bDay, setBDay] = useState('')
+  const [password, setPassword] = useState('')
   const handleClose = (e) => {
     if (e.target.id === 'wrapper') onClose()
     e.stopPropagation()
@@ -13,19 +17,18 @@ export default function SignUpModal({ onClose, email }) {
     setopenMore(true)
   }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault(); // 폼 제출 시 페이지 새로고침 방지
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // 폼 제출 시 페이지 새로고침 방지
 
     const formData = {
-      user_name: event.target.user_name.value,
-      user_last_name: event.target.user_last_name.value,
-      birth_day: event.target.birth_day.value,
-      email: event.target.email.value,
-      password: event.target.password.value,
+      name: name,
+      lastName: lastName,
+      bDay: bDay,
+      password: password
     };
 
     try {
-      const response = await fetch("htpp://localhost:8080/members/new", {
+      const response = await fetch("http://localhost:8080/members/new", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,8 +36,9 @@ export default function SignUpModal({ onClose, email }) {
         body: JSON.stringify(formData),
       });
 
-      console.log("repose:?", response);
-
+      console.log("response:?", response);
+      console.log(name)
+      console.log(JSON.stringify(formData))
       if (response.ok) {
         alert("회원가입에 성공했습니다.");
       } else {
@@ -73,6 +77,8 @@ export default function SignUpModal({ onClose, email }) {
               <input
                 type="text"
                 name="user_name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 placeholder="이름(예: 길동)"
                 autoComplete="off"
                 className="py-1 px-3 block w-full bg-transparent text-sm placeholder:text-gray-500 focus:outline-none focus:ring-0"
@@ -82,6 +88,8 @@ export default function SignUpModal({ onClose, email }) {
               <input
                 type="text"
                 name="user_last_name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
                 placeholder="성(예: 홍)"
                 autoComplete="off"
                 className="py-1 px-3 block w-full bg-transparent text-sm placeholder:text-gray-500 focus:outline-none focus:ring-0"
@@ -95,6 +103,8 @@ export default function SignUpModal({ onClose, email }) {
             <input
               type="text"
               name="birth_day"
+              value={bDay}
+              onChange={(e) => setBDay(e.target.value)}
               placeholder="생년월일"
               autoComplete="off"
               className="py-1 px-3 block w-full bg-transparent text-sm placeholder:text-gray-500 focus:outline-none focus:ring-0"
@@ -121,6 +131,8 @@ export default function SignUpModal({ onClose, email }) {
             <input
               type="password"
               name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="비밀번호"
               autoComplete="off"
               className="py-1 px-3 block w-full bg-transparent text-sm placeholder:text-gray-500 focus:outline-none focus:ring-0"
