@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Search from '/public/home/search.svg'
 import LocationModal from '@/app/components/header/LocationModal'
 import TravelerModal from '@/app/components/header/TravelerModal'
@@ -9,6 +9,10 @@ export default function SearchBar() {
   const [travelerAnchorEl, setTravelerAnchorEl] = useState(null)
   const [showCalendar, setShowCalendar] = useState(false)
   const [selectedLocation, setSelectedLocation] = useState('');
+  const [checkInDate, setCheckInDate] = useState(null); // 새로운 상태 추가
+  const [checkOutDate, setCheckOutDate] = useState(null); // 새로운 상태 추가
+  const [guests, setGuests] = useState(0);
+
   const handleLocationModalOpen = (e) => {
     setLocationAnchorEl(e.currentTarget)
   }
@@ -22,9 +26,6 @@ export default function SearchBar() {
     setSelectedLocation(location);
   };
 
-  const [checkInDate, setCheckInDate] = useState(null); // 새로운 상태 추가
-  const [checkOutDate, setCheckOutDate] = useState(null); // 새로운 상태 추가
-
   const handleSelectRange = (newRange) => {
     // 수정: newRange.from이 Date 객체인지 확인
     if (newRange.from instanceof Date) {
@@ -33,7 +34,23 @@ export default function SearchBar() {
     setCheckOutDate(newRange?.to);
     setShowCalendar(false);
   }
-  
+  const [guestCounts, setGuestCounts] = useState({
+    adult: 0,
+    child: 0,
+    baby: 0,
+    pet: 0,
+  });
+
+  // Function to handle count change
+  const handleCountChange = (counts) => {
+    setGuestCounts({
+      adult: counts[0],
+      child: counts[1],
+      baby: counts[2],
+      pet: counts[3],
+    });
+  };
+
   return (
     <div className="w-[900px] h-[72px] relative flex border border-b border-gray-300 rounded-full shadow-lg">
       {/* 검색바 */}
@@ -45,7 +62,7 @@ export default function SearchBar() {
       >       
         <div className="text-black font-bold ml-8">여행지</div>
         <input
-          className="text-gray-500 items-center ml-8 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
+          className="text-black-500 text-md font-bold items-center ml-8 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
           placeholder="여행지 검색"
           value={selectedLocation}
           readOnly
@@ -78,12 +95,17 @@ export default function SearchBar() {
         onClick={handleTravelerModalOpen}
       >
         <div className="text-black font-bold ml-8">여행자</div>
-        <div className="text-gray-500 items-center ml-8">게스트 추가</div>
+        <input
+          className="text-black-500 text-md font-bold items-center ml-8 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
+          placeholder="게스트 추가"
+          value={`${guestCounts.adult > 0 ? "어른:"+guestCounts.adult : ''} ${guestCounts.child > 0 ? "어린이:"+guestCounts.child : ''} ${guestCounts.baby > 0 ? "유아:"+guestCounts.baby : ''} ${guestCounts.pet > 0 ? "반려동물:"+guestCounts.pet : ''}`}
+          readOnly
+        />
       </button>
       <div className="flex flex-row items-center mr-4">
         <button className="flex justify-center items-center rounded-full w-12 h-12 bg-rose-500 hover:bg-rose-600">
           <Search width="24" height="24" />
-        </button>
+        </button> 
       </div>
 
       {/* 모달 */}
@@ -95,6 +117,7 @@ export default function SearchBar() {
       <TravelerModal
         anchorEl={travelerAnchorEl}
         setAnchorEl={setTravelerAnchorEl}
+        onCountChange={handleCountChange} 
       />
       {showCalendar && (
         <div className="absolute top-16 right-0 z-20">
