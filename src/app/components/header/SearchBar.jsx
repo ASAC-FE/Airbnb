@@ -97,7 +97,7 @@ export default function SearchBar() {
         <div className="text-black font-bold ml-8">여행자</div>
         <input
           className="text-black-500 text-md font-bold items-center ml-8 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
-          placeholder="게스트 추가"
+          placeholder="여행지 검색"
           value={`${guestCounts.adult > 0 ? "어른:"+guestCounts.adult : ''} ${guestCounts.child > 0 ? "어린이:"+guestCounts.child : ''} ${guestCounts.baby > 0 ? "유아:"+guestCounts.baby : ''} ${guestCounts.pet > 0 ? "반려동물:"+guestCounts.pet : ''}`}
           readOnly
         />
