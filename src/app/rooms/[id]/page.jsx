@@ -8,7 +8,7 @@ import PreViewPhoto from "@component_rooms/photo/ui_previewPhoto";
 import TravelInfo from "@component_rooms/info/ui_travelInfo";
 import Reservation from "@component_rooms/reservation/ui_reservation";
 
-export default async function Page({ id = 2 }) {
+export default async function Page({ id }) {
   /*
    * DataFetch
    * > 세부 데이터는 roomsData.json 파일로 처리
