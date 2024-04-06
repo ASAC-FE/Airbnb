@@ -39,7 +39,7 @@ const RoomsList = () => {
           className="w-1/4 h-full p-[12px] mb-1 flex flex-col items-start"
         >
           <div className="w-full h-1/8 relative mb-2">
-            <Link href="/rooms" onClick={handleClick}>
+            <Link href={`/rooms/${room.id}`} onClick={handleClick}>
               <ImageCarousel images={room.image} fill />
             </Link>
           </div>
