@@ -104,7 +104,7 @@ export default function SearchBar() {
       </button>
       <div className="flex flex-row items-center mr-4">
         <button className="flex justify-center items-center rounded-full w-12 h-12 bg-rose-500 hover:bg-rose-600">
-          <Search width="24" height="24" />
+          <Search width="24" height="24" color={'white'} />
         </button> 
       </div>
 
