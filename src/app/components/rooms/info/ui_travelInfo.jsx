@@ -2,6 +2,7 @@
 
 // Component
 import { DynamicSVGComponent } from "@component_rooms/_common/defineSVG";
+import Link from "next/link";
 
 export default function TravelInfo({ lodgingInfo }) {
   return (
@@ -12,15 +13,11 @@ export default function TravelInfo({ lodgingInfo }) {
         <h3 className="">{lodgingInfo.description}</h3>
         <div className="mt-1 flex items-center space-x-1">
           <DynamicSVGComponent componentName={"Star"} className={"w-4 h-4"} />
-          <div
-            className="border-b border-black hover:cursor-pointer font-semibold"
-            onClick={() => {
-              console.log("onClickHandler 후기");
-            }}
-          >
-            {/* TODO. "후기" 텍스트는 차후 string 테이블(?)에서 가져와서 처리할 수 있도록 변경 */}
-            {`후기 ${lodgingInfo.reviewCount}개`}
-          </div>
+          <Link href="/review">
+            <button className="border-b border-black hover:cursor-pointer font-semibold">
+              {`후기 ${lodgingInfo.reviewCount}개`}
+            </button>
+          </Link>
         </div>
       </div>
 

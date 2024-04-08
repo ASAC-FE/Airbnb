@@ -31,7 +31,7 @@ export default function Header() {
 function Logo() {
   return (
     <div className="flex flex-grow">
-      <Link href="https://www.airbnb.co.kr/" className="w-auto h-auto">
+      <Link href="/" className="w-auto h-auto">
         <Image src="/common/logo.png" width={102} height={32} alt=""></Image>
       </Link>
     </div>
