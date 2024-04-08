@@ -1,6 +1,6 @@
 "use client";
 
-import LoginModal from "@/app/components/loginmodal";
+import LoginModal from "@/app/components/login/loginmodal";
 import React, { Fragment, useState } from "react";
 import KakaoLogout from "@/app/components/kakao/kakaologout";
 import KakaoLogin from "../components/kakao/kakaologin";

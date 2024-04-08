@@ -5,6 +5,17 @@ import Introduce1 from "@/public/introduce1.svg";
 import Introduce2 from "@/public/introduce2.svg";
 
 export default function Profile() {
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`/api/profile`);
+      const jsonData = await response.json();
+      const profileData = JSON.parse(jsonData.data);
+      setData(profileData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+    console.log(profileData);
+  };
   return (
     <>
       <div className="w-[1359.2px] h-[652.8px] justify-center py-16 px-20">
