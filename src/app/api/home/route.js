@@ -1,6 +1,6 @@
-import RoomsData from '@/app/lib/data.json'
+import RoomsData from "@/app/lib/data.json";
 export async function GET() {
-  const roomsList = RoomsData.data.rooms
+  const roomsList = RoomsData.data.rooms;
   const set = roomsList.map((room) => ({
     id: parseInt(room.id),
     image: room.images,
@@ -11,7 +11,7 @@ export async function GET() {
     date: room.date,
     description: room.description,
     rating: room.rating,
-  }))
+  }));
 
-  return Response.json({ data: JSON.stringify(set) })
+  return Response.json({ data: JSON.stringify(set) });
 }
