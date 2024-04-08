@@ -53,7 +53,7 @@ export default function Review() {
                 </div>
                 <div className="w-[600px] my-12">
                     <div className="flex justify-between items-center mb-8">
-                        <span className="w-auto text-3xl">후기 93개</span>
+                        <span className="w-auto text-3xl">후기 2개</span>
                         <button className="w-20 h-8 border border-gray-300 rounded-full text-sm">최신순</button>
                     </div>
                     <div className="flex w-auto h-auto p-2 m-4 border border-gray-500 rounded-full">
