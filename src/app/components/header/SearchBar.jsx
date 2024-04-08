@@ -55,38 +55,49 @@ export default function SearchBar() {
     <div className="w-[900px] h-[72px] relative flex border border-b border-gray-300 rounded-full shadow-lg">
       {/* 검색바 */}
       <button
-        className="w-1/3 flex flex-col justify-center hover:bg-gray-100 rounded-full text-sm"
+        className="w-1/3 flex flex-col hover:bg-gray-100 rounded-full justify-center text-sm"
         aria-controls="profile-menu"
         aria-haspopup="true"
         onClick={handleLocationModalOpen}
-      >       
-        <div className="text-black font-bold ml-8">여행지</div>
-        <input
-          className="text-black-500 text-md font-bold items-center ml-8 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
-          placeholder="여행지 검색"
-          value={selectedLocation}
-          readOnly
-        />
+      >      
+        <div className='w-full flex flex-col justify-start items-start border-r'>
+          <div className="mx-8 text-black font-bold">여행지</div>
+          <input
+            className="w-auto text-black-500 text-md font-bold items-center ml-8 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
+            placeholder="여행지 검색"
+            value={selectedLocation}
+            readOnly
+          />
+        </div> 
       </button>
 
       <button
         className="w-1/6 flex flex-col justify-center rounded-full hover:bg-gray-100 text-sm"
         onClick={handleCheckInOutClick}
       >
-        <div className="text-black font-bold ml-8">체크인</div>
-        <input
-          className="text-gray-500 items-center ml-8 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
-          placeholder="날짜 추가"
-          value={checkInDate ? checkInDate.toLocaleDateString() : ''}
-          readOnly
-        />
+        <div className='w-full flex flex-col justify-start items-start border-r'>
+          <div className="mx-8 text-black font-bold">체크인</div>
+          <input
+            className="w-2/3 pr-4 text-black-500 text-md font-bold items-center ml-8 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
+            placeholder="날짜 추가"
+            value={checkInDate}
+            readOnly
+          />
+        </div> 
       </button>
       <button
         className="w-1/6 flex flex-col justify-center rounded-full hover:bg-gray-100 text-sm"
         onClick={handleCheckInOutClick}
       >
-        <div className="text-black font-bold ml-8">체크아웃</div>
-        <div className="text-gray-500 items-center ml-8">날짜 추가</div>
+        <div className='w-full flex flex-col justify-start items-start border-r'>
+          <div className="mx-8 text-black font-bold">체크아웃</div>
+          <input
+            className="w-2/3 pr-4 text-black-500 text-md font-bold items-center ml-8 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
+            placeholder="날짜 추가"
+            value={checkInDate}
+            readOnly
+          />
+        </div> 
       </button>
       <button
         className="w-1/3 flex flex-col justify-center pr-8 rounded-full hover:bg-gray-100 text-sm"
@@ -96,9 +107,8 @@ export default function SearchBar() {
       >
         <div className="text-black font-bold ml-8">여행자</div>
         <input
-          className="text-black-500 text-md font-bold items-center ml-8 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
+          className="w-auto text-black-500 text-md font-bold items-center ml-8 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
           placeholder="여행지 검색"
-          value={`${guestCounts.adult > 0 ? "어른:"+guestCounts.adult : ''} ${guestCounts.child > 0 ? "어린이:"+guestCounts.child : ''} ${guestCounts.baby > 0 ? "유아:"+guestCounts.baby : ''} ${guestCounts.pet > 0 ? "반려동물:"+guestCounts.pet : ''}`}
           readOnly
         />
       </button>
