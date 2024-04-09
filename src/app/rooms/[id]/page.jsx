@@ -23,8 +23,9 @@ export default async function Page({ id=2 }) {
     cache: "no-cache",
   });
   const parsedJson = await info.json();
+  
   const parsedData = parsedJson.data;
-
+  console.log(parsedData)
   return (
     <React.Fragment>
       <Header />
