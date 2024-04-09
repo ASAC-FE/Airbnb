@@ -1,23 +1,23 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // swcMinify: true,
+  swcMinify: true,
   webpack: (config) => {
     config.module.rules.push({
-      test: /\.svg$/,
+      test: /.svg$/,
       use: ["@svgr/webpack"],
     });
 
     return config;
   },
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: "/:path*",
-  //       destination: "http://localhost:8080/:path*",
-  //     },
-  //   ];
-  // },
+  async rewrites() {
+    return [
+      {
+        source: "/members/new",
+        destination: "http://localhost:8080/members/new",
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
