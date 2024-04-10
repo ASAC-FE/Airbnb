@@ -90,13 +90,6 @@ export default function LoginModal({ openModal, onClose }) {
             </span>
           </div>{" "}
           <KakaoLogin />
-          {/* <button
-            className="font-semibold w-full transition items-center justify-center rounded-md text-sm bg-yellow-500 text-amber-950 h-12 opacity-80"
-            type="button"
-            onClick={handleSignupModal}
-          >
-            카카오로 로그인 하기
-          </button> */}
           {signupModal && <SignupModal onClose={() => setsignupModal(false)} />}
         </div>
       </div>

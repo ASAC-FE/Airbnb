@@ -14,8 +14,9 @@ export default function SignUpModal({ onClose, email }) {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault(); //입력 중간의 새로 고침 등 기본적인 제출에 대한 이벤트 발생 방지
 
+    //사용자에게 입력 받은 데이터 객체 생성
     const formData = {
       user_name: event.target.user_name.value,
       user_last_name: event.target.user_last_name.value,
@@ -26,20 +27,21 @@ export default function SignUpModal({ onClose, email }) {
 
     try {
       const response = await fetch("/members/new", {
+        // 프록시 이용하여 POST 요청
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formData), //데이터를 JSON 문자열로 변환하여 전송
       });
 
       if (response.ok) {
-        alert("회원가입에 성공했습니다.");
+        alert("회원가입에 성공했습니다."); //status 200
       } else {
-        alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+        alert("회원가입에 실패했습니다. 다시 시도해주세요."); //status 500(중복회원)
       }
     } catch (error) {
-      console.error("회원가입 요청 중 오류가 발생했습니다:", error);
+      console.error("회원가입 요청 중 오류가 발생했습니다:", error); //POST 요청 실패
       alert("네트워크 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
