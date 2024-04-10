@@ -21,7 +21,7 @@ export default function KakaoLogin() {
   };
 
   return (
-    <Link href="" onClick={handleLoginClick} className="w-56 h-12">
+    <Link href="" onClick={handleLoginClick} className="w-52 h-12">
       <Image src={Kakao} alt="카카오로그인" className="h-12 w-full" />
     </Link>
   );
