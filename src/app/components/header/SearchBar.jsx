@@ -27,7 +27,7 @@ export default function SearchBar() {
   };
 
   const handleSelectRange = (newRange) => {
-    if (newRange.from && newRange.to) {
+    if (newRange?.from && newRange?.to) {
       // Both check-in and check-out dates are selected
       setCheckInDate(newRange.from);
       setCheckOutDate(newRange.to);
