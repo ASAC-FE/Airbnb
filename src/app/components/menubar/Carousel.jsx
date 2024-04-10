@@ -30,31 +30,34 @@ export default function Carousel() {
     { imgpath: 'menu_icon22.jpg', menuname: '와인 농장' },
   ]
   const [currentIndex, setCurrentIndex] = useState(0)
+  const totalMenus = menus.length;
+  const visibleMenus = 15;
 
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => Math.min(prevIndex + 5, menus.length - 1))
-  }
+    setCurrentIndex((prevIndex) => (prevIndex + visibleMenus >= totalMenus ? 0 : prevIndex + 1));
+  };
 
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) => Math.max(prevIndex - 5, 0))
-  }
+    setCurrentIndex((prevIndex) => (prevIndex - 1 < 0 ? totalMenus - visibleMenus : prevIndex - 1));
+  };
 
   return (
     <div className="w-full h-[90px] pt-8 pb-0 px-16 flex justify-between items-center">
       <button
         className="prev"
         onClick={prevSlide}
-        disabled={currentIndex === 0}
       >
         <div className="w-auto h-auto p-1 bg-white rounded-full text-gray-700 border border-gray-400 items-center">
           <ArrowLeft width="24" height="24" />
         </div>
       </button>
-      <div className="w-auto flex justify-between items-center space-x-12">
-        {menus.slice(currentIndex, currentIndex + 16).map((menu, index) => (
+      <div className="w-auto flex justify-between items-center space-x-12 transition-all duration-2000 ">
+        {menus
+          .slice(currentIndex, currentIndex + visibleMenus)
+          .map((menu, index) => (
           <div
             key={index}
-            className="flex flex-col justify-between items-center"
+            className="flex flex-col justify-center items-center"
           >
             <Image
               src={`/menubar/${menu.imgpath}`}
@@ -69,7 +72,6 @@ export default function Carousel() {
       <button
         className="next"
         onClick={nextSlide}
-        disabled={currentIndex + 11 >= menus.length}
       >
         <div className="w-auto h-auto p-1 bg-white rounded-full text-gray-700 border border-gray-400 items-center">
           <ArrowRight width="24" height="24" />
