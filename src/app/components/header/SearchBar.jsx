@@ -27,13 +27,19 @@ export default function SearchBar() {
   };
 
   const handleSelectRange = (newRange) => {
-    // 수정: newRange.from이 Date 객체인지 확인
-    if (newRange.from instanceof Date) {
-      setCheckInDate(newRange?.from);
+    if (newRange.from && newRange.to) {
+      // Both check-in and check-out dates are selected
+      setCheckInDate(newRange.from);
+      setCheckOutDate(newRange.to);
+    } else if (newRange.from) {
+      // Only check-in date is selected
+      setCheckInDate(newRange.from);
+    } else if (newRange.to) {
+      // Only check-out date is selected
+      setCheckOutDate(newRange.to);
     }
-    setCheckOutDate(newRange?.to);
-    setShowCalendar(false);
   }
+  
   const [guestCounts, setGuestCounts] = useState({
     adult: 0,
     child: 0,
@@ -78,9 +84,9 @@ export default function SearchBar() {
         <div className='w-full flex flex-col justify-start items-start border-r'>
           <div className="mx-8 text-black font-bold">체크인</div>
           <input
-            className="w-2/3 pr-4 text-black-500 text-md font-bold items-center ml-8 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
+            className="w-[100px] pr-4 text-black-500 text-md font-bold items-center ml-8 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
             placeholder="날짜 추가"
-            value={checkInDate}
+            value={checkInDate ? checkInDate.toLocaleDateString() : ''}
             readOnly
           />
         </div> 
@@ -92,9 +98,9 @@ export default function SearchBar() {
         <div className='w-full flex flex-col justify-start items-start border-r'>
           <div className="mx-8 text-black font-bold">체크아웃</div>
           <input
-            className="w-2/3 pr-4 text-black-500 text-md font-bold items-center ml-8 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
+            className="w-[100px] pr-4 text-black-500 text-md font-bold items-center ml-8 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
             placeholder="날짜 추가"
-            value={checkInDate}
+            value={checkOutDate ? checkOutDate.toLocaleDateString() : ''}
             readOnly
           />
         </div> 
@@ -108,7 +114,8 @@ export default function SearchBar() {
         <div className="text-black font-bold ml-8">여행자</div>
         <input
           className="w-auto text-black-500 text-md font-bold items-center ml-8 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
-          placeholder="여행지 검색"
+          placeholder="게스트 추가"
+          value="게스트 추가"
           readOnly
         />
       </button>
@@ -129,11 +136,11 @@ export default function SearchBar() {
         setAnchorEl={setTravelerAnchorEl}
         onCountChange={handleCountChange} 
       />
-      {showCalendar && (
-        <div className="absolute top-16 right-0 z-20">
-          <CalendarModal onSelectRange={handleSelectRange} />
-        </div>
-      )}
+    {showCalendar && (
+      <div className="absolute top-16 right-0 z-20">
+        <CalendarModal onSelectRange={handleSelectRange} />
+      </div>
+    )}
     </div>
   )
 }

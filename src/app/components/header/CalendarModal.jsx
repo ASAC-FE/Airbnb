@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Calendar from '@/app/components/header/Calendar'
 
-export default function CalendarModal() {
+export default function CalendarModal({onSelectRange}) {
   const [range, setRange] = useState(null) // range 상태 변수 추가
+  const handleSelectRange = (newRange) => {
+    onSelectRange(newRange);
+  };
 
   return (
     <div className="flex items-center justify-center w-[800px] h-[480px] bg-white  z-10 rounded-xl shadow-lg">
@@ -18,7 +21,7 @@ export default function CalendarModal() {
         </div>
 
         <div className="absolute top-4 w-full h-full flex items-center justify-center px-0">
-          <Calendar range={range} setRange={setRange} />
+          <Calendar onSelectRange={handleSelectRange} />
         </div>
       </div>
     </div>
