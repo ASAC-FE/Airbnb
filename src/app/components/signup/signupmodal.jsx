@@ -1,51 +1,47 @@
-'use client'
-import React, { useState } from 'react'
-import Back from '/public/Back.svg'
-import MoreOne from '@/app/components/signup/moreone'
+"use client";
+import React, { useState } from "react";
+import Back from "/public/Back.svg";
+import MoreOne from "@/app/components/signup/moreone";
 export default function SignUpModal({ onClose, email }) {
-  const [openMore, setopenMore] = useState(false)
-  const [name, setName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [bDay, setBDay] = useState('')
-  const [password, setPassword] = useState('')
+  const [openMore, setopenMore] = useState(false);
   const handleClose = (e) => {
-    if (e.target.id === 'wrapper') onClose()
-    e.stopPropagation()
-  }
+    if (e.target.id === "wrapper") onClose();
+    e.stopPropagation();
+  };
 
   const handleOpenMore = () => {
-    setopenMore(true)
-  }
+    setopenMore(true);
+  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // 폼 제출 시 페이지 새로고침 방지
+  const handleSubmit = async (event) => {
+    event.preventDefault(); //입력 중간의 새로 고침 등 기본적인 제출에 대한 이벤트 발생 방지
 
+    //사용자에게 입력 받은 데이터 객체 생성
     const formData = {
-      name: name,
-      lastName: lastName,
-      bDay: bDay,
-      password: password
+      user_name: event.target.user_name.value,
+      user_last_name: event.target.user_last_name.value,
+      birth_day: event.target.birth_day.value,
+      email: event.target.email.value,
+      password: event.target.password.value,
     };
 
     try {
-      const response = await fetch("http://localhost:8080/members/new", {
+      const response = await fetch("/members/new", {
+        // 프록시 이용하여 POST 요청
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formData), //데이터를 JSON 문자열로 변환하여 전송
       });
 
-      console.log("response:?", response);
-      console.log(name)
-      console.log(JSON.stringify(formData))
       if (response.ok) {
-        alert("회원가입에 성공했습니다.");
+        alert("회원가입에 성공했습니다."); //status 200
       } else {
-        alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+        alert("회원가입에 실패했습니다. 다시 시도해주세요."); //status 500(중복회원)
       }
     } catch (error) {
-      console.error("회원가입 요청 중 오류가 발생했습니다:", error);
+      console.error("회원가입 요청 중 오류가 발생했습니다:", error); //POST 요청 실패
       alert("네트워크 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
@@ -77,8 +73,6 @@ export default function SignUpModal({ onClose, email }) {
               <input
                 type="text"
                 name="user_name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
                 placeholder="이름(예: 길동)"
                 autoComplete="off"
                 className="py-1 px-3 block w-full bg-transparent text-sm placeholder:text-gray-500 focus:outline-none focus:ring-0"
@@ -88,8 +82,6 @@ export default function SignUpModal({ onClose, email }) {
               <input
                 type="text"
                 name="user_last_name"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
                 placeholder="성(예: 홍)"
                 autoComplete="off"
                 className="py-1 px-3 block w-full bg-transparent text-sm placeholder:text-gray-500 focus:outline-none focus:ring-0"
@@ -103,8 +95,6 @@ export default function SignUpModal({ onClose, email }) {
             <input
               type="text"
               name="birth_day"
-              value={bDay}
-              onChange={(e) => setBDay(e.target.value)}
               placeholder="생년월일"
               autoComplete="off"
               className="py-1 px-3 block w-full bg-transparent text-sm placeholder:text-gray-500 focus:outline-none focus:ring-0"
@@ -121,7 +111,7 @@ export default function SignUpModal({ onClose, email }) {
               placeholder="이메일"
               autoComplete="off"
               className="py-1 px-3 block w-full bg-transparent text-sm placeholder:text-gray-500 focus:outline-none focus:ring-0"
-              defaultValue={localStorage.getItem('Email')}
+              defaultValue={localStorage.getItem("Email")}
             />
           </div>
           <p className="text-left text-zinc-500 text-xs my-1 py-1 tracking-tight">
@@ -131,8 +121,6 @@ export default function SignUpModal({ onClose, email }) {
             <input
               type="password"
               name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               placeholder="비밀번호"
               autoComplete="off"
               className="py-1 px-3 block w-full bg-transparent text-sm placeholder:text-gray-500 focus:outline-none focus:ring-0"
@@ -197,11 +185,11 @@ export default function SignUpModal({ onClose, email }) {
           </button>
           <hr />
           <p className="py-3 my-3 text-sm text-left">
-            동의 및 계속하기를 선택하여 에어비앤비{' '}
+            동의 및 계속하기를 선택하여 에어비앤비{" "}
             <span className="text-[#2875f0] underline font-semibold">
               서비스 약관
             </span>
-            ,{' '}
+            ,{" "}
             <span className="text-[#2875f0] underline font-semibold">
               결제 서비스 약관
             </span>
@@ -230,5 +218,5 @@ export default function SignUpModal({ onClose, email }) {
         {openMore && <MoreOne onClose={() => setopenMore(false)} />}
       </div>
     </div>
-  )
+  );
 }
