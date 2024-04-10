@@ -2,6 +2,7 @@
 const KAKAO_API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 import Kakao from "@/app/users/img/kakao_login_large_wide.png";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function KakaoLogin() {
   const authParam = new URLSearchParams({
@@ -20,8 +21,8 @@ export default function KakaoLogin() {
   };
 
   return (
-    <a href="" onClick={handleLoginClick} className="w-56 h-12">
-      <Image src={Kakao} alt="카카오로그인" className="h-12 w-56" />
-    </a>
+    <Link href="" onClick={handleLoginClick} className="w-56 h-12">
+      <Image src={Kakao} alt="카카오로그인" className="h-12 w-full" />
+    </Link>
   );
 }
