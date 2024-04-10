@@ -26,7 +26,7 @@ export default function SignUpModal({ onClose, email }) {
     };
 
     try {
-      const response = await fetch("/members/new", {
+      const response = await fetch(`http://localhost:3000/api/signup`, {
         // 프록시 이용하여 POST 요청
         method: "POST",
         headers: {

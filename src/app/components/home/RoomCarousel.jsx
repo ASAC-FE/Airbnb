@@ -7,13 +7,15 @@ import Image from 'next/image'
 export default function RoomCarousel({ images }) {
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  const goToPreviousSlide = () => {
+  const goToPreviousSlide = (event) => {
+    event.stopPropagation();
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? images.length - 1 : prevIndex - 1
     )
   }
 
-  const goToNextSlide = () => {
+  const goToNextSlide = (event) => {
+    event.stopPropagation();
     setCurrentIndex((prevIndex) =>
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
     )
